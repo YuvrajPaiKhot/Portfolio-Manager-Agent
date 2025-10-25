@@ -1,0 +1,7 @@
+.env
+__pycache__/
+.langgraph_api/
+deprecated/
+reports/
+testing/
+test.ipynb
