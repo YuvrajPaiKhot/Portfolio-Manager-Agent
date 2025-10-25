@@ -14,7 +14,6 @@ def gather_yahooquery_mf_data(tickers):
 
     console = Console()
     console.print("Gathering data from yahooquery...", style="dim italic")
-    # tickers = state.get("tickers", {})
 
     additional_info = {}
     fund_sector_weightings = {}

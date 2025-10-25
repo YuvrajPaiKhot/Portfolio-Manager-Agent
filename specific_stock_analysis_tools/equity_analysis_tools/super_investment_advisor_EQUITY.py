@@ -64,7 +64,6 @@ def display_investment_advice(analyzed_items):
     console = Console()
 
     for item in analyzed_items:
-        # --- Safely extract data from the new schema ---
         company = item.get("company", "N/A")
         recommendation = item.get("recommendation", "N/A")
         rationale = item.get("rationale", {})
@@ -74,7 +73,6 @@ def display_investment_advice(analyzed_items):
         rewards = rationale.get("potential_rewards", [])
         risks = rationale.get("potential_risks", [])
 
-        # --- Style the recommendation ---
         if recommendation.lower() == "buy":
             rec_style = "bold green"
         elif recommendation.lower() == "sell":
@@ -82,13 +80,11 @@ def display_investment_advice(analyzed_items):
         else:
             rec_style = "bold yellow"
 
-        # --- Build the Header Section ---
         header = Text()
         header.append("Recommendation: ", style="bold")
         header.append(f"{recommendation.upper()}\n\n", style=rec_style)
         header.append(f"{summary}\n", style="italic")
 
-        # --- Create a Pros and Cons Table ---
         pros_cons_table = Table.grid(expand=True, padding=(0, 2))
         pros_cons_table.add_column("Rewards", style="green", justify="left")
         pros_cons_table.add_column("Risks", style="red", justify="left")
@@ -103,14 +99,12 @@ def display_investment_advice(analyzed_items):
 
         pros_cons_table.add_row(rewards_text, risks_text)
         
-        # --- Assemble all components for the panel ---
         content_group = Group(
             header,
             Panel(Text(alignment, justify="left"), title="[bold]Alignment with Your Profile[/bold]", border_style="dim", padding=(1, 2)),
             Panel(pros_cons_table, title="[bold]Key Considerations[/bold]", border_style="dim", padding=(1, 2))
         )
 
-        # --- Create the final panel for the company ---
         company_panel = Panel(
             content_group,
             title=f"[bold cyan]{company}[/bold cyan]",
@@ -158,18 +152,11 @@ def investment_advice_equity(tickers: dict[str, str], state):
 
     console = Console()
 
-    # console.print("Generating Investmet Advice...", style="dim italic")
     print("\n")
 
-    # tickers = get_tickers(companies)
     equity_data = gather_yfinance_equity_data(tickers)
     analysis = analyze_EQUITY(equity_data)
 
-    # print(json.dumps(equity_data, indent=2))
-
-    # equity_data = state["equity_data"]
-
-    # analysis = equity_data.get("analysis", [])
     financial_data = equity_data.get("financial_data", {})
     additional_info = equity_data.get("additional_info", {})
 

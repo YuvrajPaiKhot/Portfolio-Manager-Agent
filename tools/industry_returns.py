@@ -100,25 +100,6 @@ def specific_sector_industry_returns(sectors_to_process):
     return industry_returns
 
 
-
-# def specific_industry_returns(industry):
-#     """Returns a dictionary containing periodwise return for a specific sector"""
-#     periods = ["ytd", "1mo", "3mo", "1y", "3y", "5y", "10y"]
-#     sector_tickers = list(sector_mapping.keys())
-#     sector_returns = {sector: {} for sector in sector_mapping.values()}
-
-#     for period in periods:
-#         sector_df = get_historical_pricing(sector_tickers, period=period, interval="1d")
-
-#         for symbol, symbol_df in sector_df.groupby('symbol'):
-#             sector_name = sector_mapping[symbol]
-#             if(sector_name == sector):
-#                 ret = round(((symbol_df.iloc[-1]["close"] - symbol_df.iloc[0]["close"])/symbol_df.iloc[0]["close"]) * 100, 2)
-#                 sector_returns[sector_name][period] = ret 
-
-#     return sector_returns
-
-
 def get_industry_top_companies(recommendations):
 
     industry_top_companies = {}

@@ -89,7 +89,6 @@ def display_investment_advice(analyzed_items):
     console = Console()
 
     for item in analyzed_items:
-        # --- Safely extract data from the new schema ---
         company = item.get("fund_name", "N/A")
         recommendation = item.get("recommendation", "N/A")
         rationale = item.get("rationale", {})
@@ -99,7 +98,6 @@ def display_investment_advice(analyzed_items):
         rewards = rationale.get("key_positives", [])
         risks = rationale.get("key_concerns", [])
 
-        # --- Style the recommendation ---
         if recommendation.lower() == "suitable":
             rec_style = "bold green"
         elif recommendation.lower() == "not suitable":
@@ -107,13 +105,11 @@ def display_investment_advice(analyzed_items):
         else:
             rec_style = "bold yellow"
 
-        # --- Build the Header Section ---
         header = Text()
         header.append("Recommendation: ", style="bold")
         header.append(f"{recommendation.upper()}\n\n", style=rec_style)
         header.append(f"{summary}\n", style="italic")
 
-        # --- Create a Pros and Cons Table ---
         pros_cons_table = Table.grid(expand=True, padding=(0, 2))
         pros_cons_table.add_column("Rewards", style="green", justify="left")
         pros_cons_table.add_column("Risks", style="red", justify="left")
@@ -127,15 +123,13 @@ def display_investment_advice(analyzed_items):
             risks_text.append(f"❌ {risk}\n\n")
 
         pros_cons_table.add_row(rewards_text, risks_text)
-        
-        # --- Assemble all components for the panel ---
+ 
         content_group = Group(
             header,
             Panel(Text(alignment, justify="left"), title="[bold]Alignment with Your Profile[/bold]", border_style="dim", padding=(1, 2)),
             Panel(pros_cons_table, title="[bold]Key Considerations[/bold]", border_style="dim", padding=(1, 2))
         )
 
-        # --- Create the final panel for the company ---
         company_panel = Panel(
             content_group,
             title=f"[bold cyan]{company}[/bold cyan]",
@@ -154,12 +148,9 @@ def analyze_MF(tickers: dict[str, str], state) -> str:
         companies: List of mutual funds you want to analyze
     """
     console = Console()
-    # console.print("Generating investment advice...", style="dim italic")
 
-    # tickers = get_tickers(companies)
     fund_data = gather_yahooquery_mf_data(tickers)
 
-    # fund_data = state.get("fund_data", {})
 
     if(not fund_data):
         return {

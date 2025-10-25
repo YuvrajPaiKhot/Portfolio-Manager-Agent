@@ -14,7 +14,6 @@ def gather_yfinance_equity_data(tickers):
 
     console = Console()
     console.print("Gathering data from yahooquery...", style="dim italic")
-    # tickers = state.get("tickers", {})
 
     valuation_measures = {}
     income_statement = {}

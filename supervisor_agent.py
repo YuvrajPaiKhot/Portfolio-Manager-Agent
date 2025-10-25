@@ -7,13 +7,11 @@ from states.overall_state import OverallState
 from langgraph.graph import StateGraph, START, END
 
 from rich.console import Console
-# from rich.panel import Panel
 from rich.prompt import Prompt, IntPrompt
 from rich.table import Table
 import traceback
 import json
 
-# Overall Graph
 overallGraph = StateGraph(OverallState)
 overallGraph.add_node("parse_user_input", parse_user_input)
 overallGraph.add_node("tool_executor", execute_tools)
@@ -37,7 +35,6 @@ if __name__ == "__main__":
         settings = json.load(f)
 
     if(settings["user_profile_created"] == False):
-        # Create Profile
         console.print("[bold yellow]You haven't created a profile yet. Please create one to continue.[/bold yellow]\n")
         name = Prompt.ask("Enter your name")
         age = Prompt.ask("Enter your age")
@@ -83,16 +80,10 @@ if __name__ == "__main__":
                 console.print("[bold red]Goodbye![/bold red]")
                 break
             
-            # Use the synchronous invoke method
             result = graph.invoke(
                 {"messages": [{"role": "user", "content": prompt}], "user_profile": user_profile},
                 config={"configurable": {"thread_id": 1}}
             )
-            
-            # # Print the final message from the graph
-            # final_message = result.get("messages", [])[-1].content
-            # panel = Panel(final_message, title="[bold magenta]Financial Advisor[/bold magenta]", border_style="magenta", expand=False)
-            # console.print(panel)
 
         except KeyboardInterrupt:
             console.print("[bold red]Goodbye![/bold red]")

@@ -26,7 +26,6 @@ def add_to_database(company: str, quantity: int, price: float) -> str:
     tickers = get_tickers([company])
 
     if not tickers:
-        # console.print(f"[red]Error: Ticker for {company} not found.[/red]")
         return f"Error: Ticker for {company} not found."
     
     exchange, quoteType, longName, shortName = get_additional_info(tickers[company])

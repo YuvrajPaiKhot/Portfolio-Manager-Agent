@@ -372,5 +372,4 @@ def screen_stocks(state: Annotated[dict, InjectedState],
     except Exception as e:
             prompt = state["messages"][-1]
             display_result_for_unknown_prompts(prompt)
-            # console.print("[bold red]Error: An error occurred while processing your query![/bold red]")
             return "Error: An error occurred while processing your query. Reverting to Any Prompt"

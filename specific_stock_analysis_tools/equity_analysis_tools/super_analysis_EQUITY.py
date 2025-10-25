@@ -22,9 +22,9 @@ def _calculate_cagr(end_value, start_value, years):
     """Calculates Compound Annual Growth Rate."""
     if start_value is None or end_value is None or start_value == 0 or years <= 0:
         return nan
-    # Handle cases where start or end values might be negative
+    
     if np.sign(start_value) != np.sign(end_value):
-        return nan # CAGR is not meaningful if signs change
+        return nan
     return (abs(end_value / start_value)) ** (1 / years) - 1
 
 def _calculate_change(current, previous):
@@ -50,9 +50,8 @@ def get_metric_datapackage(
         "annual": {"history": {}, "trends": {}}
     }
 
-    # 1. TTM SNAPSHOT CALCULATION
+    
     ttm_value = nan
-    # Prioritize specific TTM dataframes if available
     ttm_source_df = pd.DataFrame()
     if metric_name in ttm_is_df.columns:
         ttm_source_df = ttm_is_df
@@ -64,7 +63,6 @@ def get_metric_datapackage(
     if not ttm_source_df.empty:
         ttm_value = _safe_get(ttm_source_df, -1, metric_name)
     
-    # If no TTM value is found (e.g., Balance Sheet items), use the most recent quarterly value
     if pd.isna(ttm_value):
         ttm_value = _safe_get(q_df, -1, metric_name)
 
@@ -74,11 +72,9 @@ def get_metric_datapackage(
             package['ttmValue'] = millify(round(converted_val, 2)) if not pd.isna(converted_val) else "N/A"
         else:
             package['ttmValue'] = round(ttm_value, 2)
-            package['unit'] = 'x' # for ratios
+            package['unit'] = 'x'
 
-    # 2. QUARTERLY TRENDS
     if not q_df.empty and metric_name in q_df.columns:
-        # Ensure 'asOfDate' is datetime for proper sorting and searching
         q_df['asOfDate'] = pd.to_datetime(q_df['asOfDate'])
         q_df = q_df.sort_values('asOfDate').reset_index(drop=True)
         
@@ -94,12 +90,10 @@ def get_metric_datapackage(
             q0_date = q0_row['asOfDate']
             q0_val = q0_row[metric_name]
 
-            # Find previous quarter (q1)
             q1_date_target = q0_date - pd.DateOffset(months=3)
             q1_row = q_df[q_df['asOfDate'].dt.month == q1_date_target.month]
             q1_val = q1_row[metric_name].iloc[-1] if not q1_row.empty else nan
             
-            # Find year-ago quarter (q4)
             q4_date_target = q0_date - pd.DateOffset(years=1)
             q4_row = q_df[q_df['asOfDate'] == q4_date_target]
             q4_val = q4_row[metric_name].iloc[0] if not q4_row.empty else nan
@@ -110,7 +104,6 @@ def get_metric_datapackage(
             package['quarterly']['trends']['qoq_change_percent'] = round(qoq * 100, 2) if not pd.isna(qoq) else nan
             package['quarterly']['trends']['yoy_change_percent'] = round(yoy * 100, 2) if not pd.isna(yoy) else nan
             
-    # 3. ANNUAL TRENDS
     if not a_df.empty and metric_name in a_df.columns:
         a_df['asOfDate'] = pd.to_datetime(a_df['asOfDate'])
         a_df = a_df.sort_values('asOfDate').reset_index(drop=True)
@@ -122,14 +115,13 @@ def get_metric_datapackage(
             if not pd.isna(value):
                 package['annual']['history'][date_str] = millify(c.convert(value, company_currency, 'USD'), precision=2)
 
-        # CAGR Calculations
-        if len(a_df) >= 4: # Need at least 4 points for 3-year CAGR
+        if len(a_df) >= 4:
             end_val = _safe_get(a_df, -1, metric_name)
             start_val_3y = _safe_get(a_df, -4, metric_name)
             cagr_3y = _calculate_cagr(end_val, start_val_3y, 3)
             package['annual']['trends']['cagr_3_year'] = round(cagr_3y * 100, 2) if not pd.isna(cagr_3y) else nan
 
-        if len(a_df) >= 6: # Need at least 6 points for 5-year CAGR
+        if len(a_df) >= 6:
             end_val = _safe_get(a_df, -1, metric_name)
             start_val_5y = _safe_get(a_df, -6, metric_name)
             cagr_5y = _calculate_cagr(end_val, start_val_5y, 5)
@@ -143,8 +135,6 @@ def analyze_EQUITY(equity_data):
 
     console.print("Analyzing financial instruments...", style="dim italic")
 
-    # equity_data = state["equity_data"]
-
     income_statement = equity_data.get("income_statement", pd.DataFrame)
     balance_sheet = equity_data.get("balance_sheet", pd.DataFrame)
     valuation_measures = equity_data.get("valuation_measures", pd.DataFrame)
@@ -155,21 +145,18 @@ def analyze_EQUITY(equity_data):
     
     final_analysis_data = {}
 
-    # Define the metrics to be calculated, grouped by theme
     metrics_to_analyze = {
-        # Valuation Theme
+        
         "PeRatio": {"displayName": "P/E Ratio", "unit_type": "ratio"},
         "PbRatio": {"displayName": "P/B Ratio", "unit_type": "ratio"},
         "PsRatio": {"displayName": "P/S Ratio", "unit_type": "ratio"},
         "EnterprisesValueEBITDARatio": {"displayName": "EV/EBITDA Ratio", "unit_type": "ratio"},
-        "PegRatio": {"displayName": "PEG Ratio", "unit_type": "ratio"},
-        # Profitability & Growth Theme
+        "PegRatio": {"displayName": "PEG Ratio", "unit_type": "ratio"},    
         "TotalRevenue": {"displayName": "Total Revenue", "unit_type": "currency"},
         "GrossProfit": {"displayName": "Gross Profit", "unit_type": "currency"},
         "OperatingIncome": {"displayName": "Operating Income", "unit_type": "currency"},
         "NetIncomeCommonStockholders": {"displayName": "Net Income", "unit_type": "currency"},
         "DilutedEPS": {"displayName": "Diluted EPS", "unit_type": "currency"},
-        # Financial Health & Risk Theme
         "OperatingCashFlow": {"displayName": "Operating Cash Flow", "unit_type": "currency"},
         "FreeCashFlow": {"displayName": "Free Cash Flow", "unit_type": "currency"},
         "TotalDebt": {"displayName": "Total Debt", "unit_type": "currency"},
@@ -296,25 +283,20 @@ def analyze_EQUITY(equity_data):
 
         sector_key = additional_info[company].get("sectorKey", nan)
         
-        # Prepare DataFrames for the current company
         is_df = income_statement[company]
         bs_df = balance_sheet[company]
         cf_df = cashflow_statement[company]
         vm_df = valuation_measures[company]
         
-        # --- Separate dataframes by period type for easier handling ---
-        # Quarterly Data (3M)
         q_is_df = is_df[is_df['periodType'] == '3M'].copy() if not is_df.empty else pd.DataFrame()
         q_bs_df = bs_df[bs_df['periodType'] == '3M'].copy() if not bs_df.empty else pd.DataFrame()
         q_cf_df = cf_df[cf_df['periodType'] == '3M'].copy() if not cf_df.empty else pd.DataFrame()
         q_vm_df = vm_df[vm_df['periodType'] == '3M'].copy() if not vm_df.empty else pd.DataFrame()
         
-        # Annual Data (12M)
         a_is_df = is_df[is_df['periodType'] == '12M'].copy() if not is_df.empty else pd.DataFrame()
         a_bs_df = bs_df[bs_df['periodType'] == '12M'].copy() if not bs_df.empty else pd.DataFrame()
         a_cf_df = cf_df[cf_df['periodType'] == '12M'].copy() if not cf_df.empty else pd.DataFrame()
         
-        # TTM Data
         ttm_is_df = is_df[is_df['periodType'] == 'TTM'].copy() if not is_df.empty else pd.DataFrame()
         ttm_cf_df = cf_df[cf_df['periodType'] == 'TTM'].copy() if not cf_df.empty else pd.DataFrame()
         ttm_vm_df = vm_df[vm_df['periodType'] == 'TTM'].copy() if not vm_df.empty else pd.DataFrame()
@@ -322,7 +304,6 @@ def analyze_EQUITY(equity_data):
         company_results = {}
         
         for metric_name, details in metrics_to_analyze.items():
-            # Determine which dataframes are relevant for the current metric
             q_df = pd.DataFrame()
             if metric_name in q_is_df.columns: q_df = q_is_df
             elif metric_name in q_bs_df.columns: q_df = q_bs_df
@@ -334,13 +315,11 @@ def analyze_EQUITY(equity_data):
             elif metric_name in a_bs_df.columns: a_df = a_bs_df
             elif metric_name in a_cf_df.columns: a_df = a_cf_df
 
-            # Generate the data package for the metric
             company_results[metric_name] = get_metric_datapackage(
                 metric_name, details['displayName'], details['unit_type'], company_currency, c,
                 q_df, a_df, ttm_is_df, ttm_cf_df, ttm_vm_df, sector_key
             )
 
-            # print(company_results[metric_name])
 
         name = additional_info[company].get("longName", "") if additional_info[company].get("longName", "") else additional_info[company].get("shortName", "")
         financial_news = get_financial_news(name, company)
@@ -360,10 +339,5 @@ def analyze_EQUITY(equity_data):
         item["company"] = company
 
         output.append(item)
-        
-
-        
-
-    # equity_data["analysis"] = output
     
     return output

@@ -453,64 +453,64 @@ screener_fields_needing_conversion = [
 ]
 
 country_to_currency = {
-    "ar": "ARS",  # Argentina Peso
-    "at": "EUR",  # Austria Euro
-    "au": "AUD",  # Australia Dollar
-    "be": "EUR",  # Belgium Euro
-    "br": "BRL",  # Brazil Real
-    "ca": "CAD",  # Canada Dollar
-    "ch": "CHF",  # Switzerland Franc
-    "cl": "CLP",  # Chile Peso
-    "cn": "CNY",  # China Yuan
-    "co": "COP",  # Colombia Peso
-    "cz": "CZK",  # Czech Republic Koruna
-    "de": "EUR",  # Germany Euro
-    "dk": "DKK",  # Denmark Krone
-    "ee": "EUR",  # Estonia Euro
-    "eg": "EGP",  # Egypt Pound
-    "es": "EUR",  # Spain Euro
-    "fi": "EUR",  # Finland Euro
-    "fr": "EUR",  # France Euro
-    "gb": "GBP",  # United Kingdom Pound
-    "gr": "EUR",  # Greece Euro
-    "hk": "HKD",  # Hong Kong Dollar
-    "hu": "HUF",  # Hungary Forint
-    "id": "IDR",  # Indonesia Rupiah
-    "ie": "EUR",  # Ireland Euro
-    "il": "ILS",  # Israel Shekel
-    "in": "INR",  # India Rupee
-    "is": "ISK",  # Iceland Krona
-    "it": "EUR",  # Italy Euro
-    "jp": "JPY",  # Japan Yen
-    "kr": "KRW",  # South Korea Won
-    "kw": "KWD",  # Kuwait Dinar
-    "lk": "LKR",  # Sri Lanka Rupee
-    "lt": "EUR",  # Lithuania Euro
-    "lv": "EUR",  # Latvia Euro
-    "mx": "MXN",  # Mexico Peso
-    "my": "MYR",  # Malaysia Ringgit
-    "nl": "EUR",  # Netherlands Euro
-    "no": "NOK",  # Norway Krone
-    "nz": "NZD",  # New Zealand Dollar
-    "pe": "PEN",  # Peru Sol
-    "ph": "PHP",  # Philippines Peso
-    "pk": "PKR",  # Pakistan Rupee
-    "pl": "PLN",  # Poland Zloty
-    "pt": "EUR",  # Portugal Euro
-    "qa": "QAR",  # Qatar Riyal
-    "ro": "RON",  # Romania Leu
-    "ru": "RUB",  # Russia Ruble
-    "sa": "SAR",  # Saudi Arabia Riyal
-    "se": "SEK",  # Sweden Krona
-    "sg": "SGD",  # Singapore Dollar
-    "sr": "SRD",  # Suriname Dollar
-    "th": "THB",  # Thailand Baht
-    "tr": "TRY",  # Turkey Lira
-    "tw": "TWD",  # Taiwan Dollar
-    "us": "USD",  # United States Dollar
-    "ve": "VES",  # Venezuela Bolívar
-    "vn": "VND",  # Vietnam Dong
-    "za": "ZAR",  # South Africa Rand
+    "ar": "ARS",  
+    "at": "EUR",  
+    "au": "AUD",  
+    "be": "EUR",  
+    "br": "BRL",  
+    "ca": "CAD", 
+    "ch": "CHF",  
+    "cl": "CLP",  
+    "cn": "CNY", 
+    "co": "COP",  
+    "cz": "CZK",  
+    "de": "EUR",  
+    "dk": "DKK",  
+    "ee": "EUR",  
+    "eg": "EGP",  
+    "es": "EUR",  
+    "fi": "EUR",  
+    "fr": "EUR",  
+    "gb": "GBP",  
+    "gr": "EUR",  
+    "hk": "HKD",  
+    "hu": "HUF",  
+    "id": "IDR",  
+    "ie": "EUR",  
+    "il": "ILS",  
+    "in": "INR",  
+    "is": "ISK",  
+    "it": "EUR",  
+    "jp": "JPY",  
+    "kr": "KRW",  
+    "kw": "KWD",  
+    "lk": "LKR",  
+    "lt": "EUR",  
+    "lv": "EUR",  
+    "mx": "MXN",  
+    "my": "MYR",  
+    "nl": "EUR",  
+    "no": "NOK",  
+    "nz": "NZD",  
+    "pe": "PEN",  
+    "ph": "PHP",  
+    "pk": "PKR", 
+    "pl": "PLN",  
+    "pt": "EUR",  
+    "qa": "QAR",  
+    "ro": "RON",  
+    "ru": "RUB",  
+    "sa": "SAR",  
+    "se": "SEK",  
+    "sg": "SGD",  
+    "sr": "SRD",  
+    "th": "THB",  
+    "tr": "TRY",  
+    "tw": "TWD", 
+    "us": "USD",  
+    "ve": "VES",  
+    "vn": "VND",  
+    "za": "ZAR", 
 }
 
 

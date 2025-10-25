@@ -26,8 +26,6 @@ from tools.any_prompt import display_result_for_unknown_prompts
 
 api_key = os.getenv("GEMINI_API_KEY")
 
-
-# For Gemini structured output
 response_schema = {
     "type": "object",
     "properties": {

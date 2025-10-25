@@ -82,7 +82,6 @@ class HoldingsManager:
     def delete_holding_by_ticker(self, ticker: str) -> str:
         holdings = self._load()
         is_deleted = False
-        # new_holdings = [h for h in holdings if h["ticker"]!=ticker]
         new_holdings = []
 
         for h in holdings:
