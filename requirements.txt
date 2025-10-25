@@ -1,0 +1,9 @@
+langchain
+langgraph
+pandas
+numpy
+yahooquery
+weasyprint
+currencyconverter
+millify
+rich
