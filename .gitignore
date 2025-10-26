@@ -2,6 +2,6 @@
 __pycache__/
 .langgraph_api/
 deprecated/
-reports/
 testing/
 test.ipynb
+portfolio_report_*.pdf
