@@ -44,7 +44,7 @@ This agent acts as a personal financial advisor, understanding natural language 
 
 ## Project Demo
 
-Watch a full walkthrough and demonstration of the project's capabilities on [Will be updated soon](https://www.youtube.com/watch?v=GgYLoVwLWhI).
+Watch a full walkthrough and demonstration of the project's capabilities on [YouTube](https://www.youtube.com/watch?v=GgYLoVwLWhI).
 
 ---
 
