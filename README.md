@@ -6,8 +6,8 @@ This agent acts as a personal financial advisor, understanding natural language 
 </p>
 
 <p align="center">
-<img alt="Python" src="https://img.shields.io/badge/Python-3.11%2B-blue?style=for-the-badge&logo=python&logoColor=white"/>
-<img alt="LangGraph" src="https://img.shields.io/badge/LangGraph-0.1%2B-blueviolet?style=for-the-badge&logo=langchain&logoColor=white"/>
+<img alt="Python" src="https://img.shields.io/badge/Python-3.12%2B-blue?style=for-the-badge&logo=python&logoColor=white"/>
+<img alt="LangGraph" src="https://img.shields.io/badge/LangGraph-0.3%2B-blueviolet?style=for-the-badge&logo=langchain&logoColor=white"/>
 <img alt="Gemini" src="https://img.shields.io/badge/Google%20Gemini-API-orange?style=for-the-badge&logo=google&logoColor=white"/>
 </p>
 
@@ -93,7 +93,7 @@ The core agent (in `agents/process_input.py`) acts as a "supervisor" or "router,
 - **LLM:** Google Gemini via `langchain_google_genai`  
 - **Financial Data:** `yahooquery`  
 - **Data Handling:** Pandas  
-- **PDF Generation:** ReportLab  
+- **PDF Generation:** WeasyPrint 
 
 
 ---
@@ -101,22 +101,15 @@ The core agent (in `agents/process_input.py`) acts as a "supervisor" or "router,
 ## Getting Started
 
 ### Prerequisites
-- Python 3.10+  
+- Python 3.12+  
 - Google Gemini API key (or other LLM)
 
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git clone https://github.com/YuvrajPaiKhot/Portfolio-Manager-Agent.git
 cd YOUR_REPO_NAME
-
-# Create a virtual environment
-python -m venv venv
-# Activate it
-# macOS/Linux
-source venv/bin/activate
-# Windows
-venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+```
