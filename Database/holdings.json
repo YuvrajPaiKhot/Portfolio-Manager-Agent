@@ -245,5 +245,18 @@
         "transaction_time": "2025-10-25T14:47:55.408380",
         "currency": "INR",
         "exchange": "NSI"
+    },
+    {
+        "name": "Cummins India Limited",
+        "price": 4181.0,
+        "quantity": 10.0,
+        "sector": "industrials",
+        "industry": "specialty-industrial-machinery",
+        "ticker": "CUMMINSIND.NS",
+        "quoteType": "EQUITY",
+        "transaction_id": "08103443-cc0c-488f-b025-9081681ea962",
+        "transaction_time": "2025-10-26T11:29:35.576066",
+        "currency": "INR",
+        "exchange": "NSI"
     }
 ]

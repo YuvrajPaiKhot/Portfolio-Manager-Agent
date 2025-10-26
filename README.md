@@ -44,7 +44,7 @@ This agent acts as a personal financial advisor, understanding natural language 
 
 ## Project Demo
 
-Watch a full walkthrough and demonstration of the project's capabilities on [Will be updated soon](YOUR_YOUTUBE_LINK_HERE).
+Watch a full walkthrough and demonstration of the project's capabilities on [Will be updated soon](https://www.youtube.com/watch?v=GgYLoVwLWhI).
 
 ---
 
@@ -112,4 +112,7 @@ cd YOUR_REPO_NAME
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run the project
+python supervisor_agent.py
 ```
