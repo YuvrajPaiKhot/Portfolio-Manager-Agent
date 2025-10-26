@@ -3,6 +3,7 @@ langgraph
 pandas
 numpy
 yahooquery
+yfinance
 weasyprint
 currencyconverter
 millify
