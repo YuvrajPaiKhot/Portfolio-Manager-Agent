@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from yahooquery import Ticker
-from weasyprint import HTML, CSS
+from playwright.sync_api import sync_playwright
 from datetime import datetime
 import base64
 from io import BytesIO
@@ -231,7 +231,17 @@ def generate_portfolio_report(holdings: list, output_path: str, base_currency: s
         industry_list_html = generate_industry_list_html(df_final)
 
         html_content = generate_html_report(df_final, summary, sector_donut_base64, others_table_html, industry_list_html, base_currency)
-        HTML(string=html_content).write_pdf(output_path, stylesheets=[CSS(string=get_css_styles())])
+        
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page()
+            
+            css_content = get_css_styles()
+            full_html = html_content.replace("</head>", f"<style>{css_content}</style></head>")
+            
+            page.set_content(full_html)
+            page.pdf(path=output_path, format="A4", print_background=True, margin={"top": "1cm", "right": "1cm", "bottom": "1cm", "left": "1cm"})
+            browser.close()
         
     except Exception as e:
         print(f"An error occurred: {e}")
