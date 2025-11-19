@@ -8,3 +8,5 @@ currencyconverter
 millify
 rich
 playwright
+matplotlib
+langchain-google-genai
